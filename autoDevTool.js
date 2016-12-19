@@ -54,30 +54,30 @@
 		var me = this;
 
 		// 三指连点两次打开调试台
-        window.addEventListener("touchend", function(e){
-        	var nowTime = new Date();
-        	var touches = e.touches.length;
+		window.addEventListener("touchend", function(e) {
+			var nowTime = new Date();
+			var touches = e.touches.length;
 
-        	if(me._times === 1) {
-        		me._times++;
-        		me._lastTapTime = nowTime;
+			if (me._times === 1) {
+				me._times++;
+				me._lastTapTime = nowTime;
 
-        		setTimeout(function(){
-        			me._times = 1;
-        		}, 1000);
-                return;
-        	}
+				setTimeout(function() {
+					me._times = 1;
+				}, 1000);
+				return;
+			}
 
-        	if(touches === 2 && me._times === 2 && (nowTime - me._lastTapTime < 1000)) {
-        		if(me._container.style.display == "none") {
-        			me._show();
-        		}else{
-        			me._hide();
-        		}
+			if (touches === 2 && me._times === 2 && (nowTime - me._lastTapTime < 1000)) {
+				if (me._container.style.display == "none") {
+					me._show();
+				} else {
+					me._hide();
+				}
 
-        		me._times = 1;
-        	}
-        })
+				me._times = 1;
+			}
+		})
 	}
 
 	/**
