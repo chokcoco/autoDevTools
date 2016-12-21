@@ -25,7 +25,7 @@
 		this._container = document.createElement('div');
 
 		this._container.setAttribute('id', 'dev-tool');
-		this._container.style.cssText = "position:fixed;bottom:0;left:0;width:100%;height:200px;padding:10px;background:rgba(0,0,0,.3);"
+		this._container.style.cssText = "position:fixed;top:70%;bottom:0;left:0;width:100%;padding:10px;box-sizing:border-box;background:rgba(0,0,0,.3);overflow:scroll;"
 
 		body.appendChild(this._container);
 	}
@@ -78,6 +78,41 @@
 				me._times = 1;
 			}
 		})
+	}
+
+	/**
+	 * 打印 log
+	 * @param {String} name 输出名字
+	 * @param {String} data 输出数据
+	 * @return {*}
+	 */
+	autoDevTool.prototype._log = function(name, data) {
+		var p = document.createElement('p');
+		var date = new Date();
+		var curTime = date.getHours() + ':' + date.getSeconds();
+
+		p.style.cssText = "font-size:12px;line-height:20px;color:#2196F3;margin-bottom:0px;border-bottom:1px solid rgba(0,0,0,.2);"
+		p.innerText = "[" + curTime + "]" + name + "：" + data;
+
+		this._container.appendChild(p);
+	}
+
+	/**
+	 * 打印 log 接口
+	 * @param {String} name 输出名字
+	 * @param  {String | JSON} data
+	 * @return {*}
+	 */
+	autoDevTool.prototype.log = function(name, data) {
+		var type = typeof data;
+
+		switch (true) {
+			case type === "object":
+				this._log(name, JSON.stringify(data));
+				break;
+			default:
+				this._log(name, data);
+		}
 	}
 
 	/**

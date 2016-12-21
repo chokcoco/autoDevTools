@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 	<title>移动端自动化调试工具</title>
+	<link rel="stylesheet" href="http://web.yystatic.com/public/global/base/css/reset.css?v=1">
 </head>
 <body>
 
@@ -9,6 +11,28 @@
 <script type="text/javascript">
 	window.dev = new autoDevTool();
 	dev.init();
+	var json = {
+		"a": 1,
+		"b": 2
+	}
+
+	var cc = {
+		"a": 1,
+		"b": 2,
+		data:{
+			ss:123,
+			vccss:123322323,
+			arr:[1,2,3,4,5,6,7,9]
+		}
+	}
+
+	dev.log("json", json);
+	dev.log("letmego", json);
+	dev.log("letmego", json);
+	dev.log("letmego", json);
+	dev.log("cc", cc);
+	dev.log("letmego", json);
+	dev.log("start:",new Date());
 </script>
 </body>
 </html>
