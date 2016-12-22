@@ -19,7 +19,7 @@
 ```HTML
 <script src="require.js"></script>
 <script>
-    require(['autoDevTool'], function(autoDevTool){
+    require(['autoDevTool.js'], function(autoDevTool){
         var devTool = new autoDevTool();
     });
 </script>
