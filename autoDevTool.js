@@ -8,9 +8,7 @@
 
 	function autoDevTool() {
 		this._version = '1.0.0';
-		this._isShow = false;
 		this._times = 1;
-		this._touchesFingerNum = 0;
 		this._lastTapTime = null;
 		this._container = null;
 
