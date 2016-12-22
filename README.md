@@ -24,17 +24,22 @@
     });
 </script>
 ```
+## 接口调用
++ log：定义需要输出的日志
+```
+  var devTool = new autoDevTool();
+  devTool.log(name, data);
+```
 
-### 调用接口进行log输出
 #### 普通变量输出
 
-```script
+```javascript
 var a = 10;
 devTool.log("a", a);
 ```
 
 #### error输出
-```script
+```javascript
 try{
   ...
 }catch(error) {
@@ -43,7 +48,7 @@ try{
 ```
 
 #### json对象输出
-```script
+```javascript
 var json = {
   a: "dev",
   b: "tool"
