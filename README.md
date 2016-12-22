@@ -25,7 +25,7 @@
 </script>
 ```
 ## 接口调用
-+ log：定义需要输出的日志
++ `log`：定义需要输出的日志
 ```
   var devTool = new autoDevTool();
   devTool.log(name, data);
