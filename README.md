@@ -30,7 +30,7 @@
   var devTool = new autoDevTool();
   devTool.log(name, data);
 ```
-
+适用如下场景：
 #### 普通变量输出
 
 ```javascript
