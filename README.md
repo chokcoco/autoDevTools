@@ -5,9 +5,18 @@
 ## 使用方法
 
 #### 初始化方法
+
+初始化一个 autoDevTool 对象，兼容 AMD、CMD标准：
+
 ```javascript
-window.dev = new autoDevTool();
+var devTool = new autoDevTool();
 ```
+
+AMD:
+```
+var devTool = require('autoDevTool.js') 
+```
+
 
 ## MIT
 
