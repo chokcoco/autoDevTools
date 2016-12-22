@@ -28,7 +28,7 @@
 
 		this._container = document.createElement('div');
 		this._container.setAttribute('id', 'dev-tool');
-		this._container.style.cssText = "position:fixed;top:70%;bottom:0;left:0;width:100%;box-sizing:border-box;background:rgba(0,0,0,.3);"
+		this._container.style.cssText = "display:none;position:fixed;top:70%;bottom:0;left:0;width:100%;box-sizing:border-box;background:rgba(0,0,0,.3);"
 
 		var navDom = '<ul style="height:20px;line-height:20px;display:flex;justify-content:space-around;color:#fff;">' + '<li class="autoDev-filter" id="autoDev-all" style="background-color:#2196f3;flex:1;text-align:center;text-align:center;">All</li>' + '<li class="autoDev-filter" id="autoDev-info" style="background-color:#21bbf3;flex:1;text-align:center;">Info</li>' + '<li class="autoDev-filter" id="autoDev-json" style="background-color:#673AB7;flex:1;text-align:center;">Json</li>' + '<li class="autoDev-filter" id="autoDev-error" style="background-color:#FF5722;flex:1;text-align:center;">Error</li>' + '<li id="autoDev-clear" style="background-color:#9e9e9e;flex:1;text-align:center;">清空</li>' + '<li id="autoDev-refresh" style="background-color:#2196f3;flex:1;text-align:center;">刷新</li>' + '</ul><div id="autoDev-log" style="position:absolute;top:20px;bottom:0;left:0;right:0;padding:5px;overflow:scroll;"></div>';
 
