@@ -1,3 +1,10 @@
+/**
+ * autoDevTool v1.0.1
+ * By Coco
+ * Github: https://github.com/chokcoco/autoDevTools
+ *
+ * @License MIT
+ */
 (function(name, definition) {
 	if (typeof define === 'function') {
 		define(definition);
@@ -7,7 +14,7 @@
 })('autoDevTool', function() {
 
 	function autoDevTool() {
-		this._version = '1.0.0';
+		this._version = '1.0.1';
 		this._times = 1;
 		this._lastTapTime = null;
 		this._container = null;
