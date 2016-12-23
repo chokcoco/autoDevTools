@@ -217,6 +217,7 @@
 
 	/**
 	 * 设置 Cookie 值
+	 * @return {*}
 	 */
 	function setCookie(name, value, Hours) {
 		var d = new Date(),
@@ -231,6 +232,7 @@
 
 	/**
 	 * 获取cookie值
+	 * @return {*}
 	 */
 	function getCookie(name) {
 		var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
