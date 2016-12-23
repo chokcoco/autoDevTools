@@ -4,9 +4,40 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 	<title>移动端自动化调试工具</title>
 	<link rel="stylesheet" href="http://web.yystatic.com/public/global/base/css/reset.css?v=1">
+	<style>
+		body{
+			padding: 0 10px;
+		}
+		h1{
+			font-weight: normal;
+			margin-bottom: 20px;
+		}
+		h2{
+			margin-top: 40px;
+		}
+		p{
+			line-height: 24px;
+		}
+	</style>
 </head>
 <body>
-
+<div>
+	<h1>移动端自动化调试工具 -- autoDevTool</h1>
+	<p>A mobile development debugging tool</p>
+	<p>移动端调试插件，上线亦可使用，三指双击呼出</p>
+	<h2>初始化方法:</h2>
+	<p>页面直接加载 autoDevTools.js，同时 autoDevTools.js 也支持 AMD 或 CMD 规范。</p>
+	<h2>控制调试台唤出方法：</h2>
+	<p>三指双击屏幕两次（间隔小于1s），可以唤出日志控制台。</p>
+	<h2>接口调用:</h2>
+	<p>log：定义需要输出的日志</p>
+	<h2>适用场景：</h2>
+	<ul>
+		<li>1、普通变量输出</li>
+		<li>2、error输出</li>
+		<li>3、json对象输出</li>
+	</ul>
+</div>
 <script type="text/javascript" src="../autoDevTool.js"></script>
 <script type="text/javascript">
 	window.dev = new autoDevTool();

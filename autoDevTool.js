@@ -35,7 +35,7 @@
 
 		this._container = document.createElement('div');
 		this._container.setAttribute('id', 'dev-tool');
-		this._container.style.cssText = "display:none;position:fixed;top:70%;bottom:0;left:0;width:100%;box-sizing:border-box;background:rgba(255,255,255,.3);"
+		this._container.style.cssText = "display:none;position:fixed;top:70%;bottom:0;left:0;width:100%;box-sizing:border-box;background:rgba(255,255,255,.8);z-index:9999;"
 
 		var navDom = '<ul style="height:20px;line-height:20px;display:flex;justify-content:space-around;color:#fff;">' + '<li class="autoDev-filter" id="autoDev-all" style="background-color:#2196f3;flex:1;text-align:center;text-align:center;">All</li>' + '<li class="autoDev-filter" id="autoDev-info" style="background-color:#21bbf3;flex:1;text-align:center;">Info</li>' + '<li class="autoDev-filter" id="autoDev-json" style="background-color:#673AB7;flex:1;text-align:center;">Json</li>' + '<li class="autoDev-filter" id="autoDev-error" style="background-color:#FF5722;flex:1;text-align:center;">Error</li>' + '<li id="autoDev-clear" style="background-color:#9e9e9e;flex:1;text-align:center;">清空</li>' + '<li id="autoDev-refresh" style="background-color:#2196f3;flex:1;text-align:center;">刷新</li>' + '</ul><div id="autoDev-log" style="position:absolute;top:20px;bottom:0;left:0;right:0;padding:5px;overflow:scroll;"></div>';
 
@@ -47,6 +47,19 @@
 		this._btnClear = document.getElementById('autoDev-clear');
 		this._btnRefresh = document.getElementById('autoDev-refresh');
 		this._btnFilter = document.querySelectorAll('.autoDev-filter');
+	}
+
+	/**
+	 * 初始化检测 URL ，查看是否开启控制台
+	 * @return {*}
+	 */
+	autoDevTool.prototype._checkUrl = function() {
+		var url = location.href;
+
+		if (getCookie("isKeepTool") == 1) {
+			this._show();
+			setCookie("isKeepTool", 0, 1);
+		}
 	}
 
 	/**
@@ -98,14 +111,19 @@
 			}
 		});
 
+		// 清空按钮
 		this._btnClear.addEventListener("click", function(e) {
 			me._logContainer.innerHTML = "";
 		});
 
+		// 刷新按钮，保存控制台打开状态
 		this._btnRefresh.addEventListener("click", function(e) {
-			location.href = location.href;
-		});
+			var url = location.href;
 
+			setCookie("isKeepTool", "1", 1);
+
+			location.href = url;
+		});
 
 		var length = this._btnFilter.length;
 
@@ -198,11 +216,35 @@
 	}
 
 	/**
+	 * 设置 Cookie 值
+	 */
+	function setCookie(name, value, Hours) {
+		var d = new Date(),
+			offset = 8,
+			utc = d.getTime() + (d.getTimezoneOffset() * 60000),
+			nd = utc + (3600000 * offset),
+			exp = new Date(nd);
+
+		exp.setTime(exp.getTime() + Hours * 60 * 60 * 1000);
+		document.cookie = name + "=" + decodeURIComponent(value) + ";path=/;expires=" + exp.toGMTString() + ";";
+	}
+
+	/**
+	 * 获取cookie值
+	 */
+	function getCookie(name) {
+		var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+		if (arr != null) return encodeURIComponent(arr[2]);
+		return null;
+	}
+
+	/**
 	 * 初始化方法
 	 * @return {*}
 	 */
 	autoDevTool.prototype.init = function() {
 		this._createWrap();
+		this._checkUrl();
 		this._eventBind();
 	}
 
