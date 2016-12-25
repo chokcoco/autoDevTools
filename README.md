@@ -26,7 +26,7 @@
 ```
 ## 接口调用
 + `log`：定义需要输出的日志。
-```
+```javascript
   var devTool = new autoDevTool();
   
   var name = "自定义日志title";
