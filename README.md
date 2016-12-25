@@ -25,9 +25,15 @@
 </script>
 ```
 ## 接口调用
-+ `log`：定义需要输出的日志，参数`name`和`data`。
++ `log`：定义需要输出的日志。
 ```
   var devTool = new autoDevTool();
+  
+  var name = "自定义日志title";
+  var data = {
+    value:""
+  }
+  
   devTool.log(name, data);
 ```
 适用如下场景：
