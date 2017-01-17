@@ -1,5 +1,5 @@
 /**
- * autoDevTool v1.0.2
+ * autoDevTool v1.0.3
  * By Coco
  * Github: https://github.com/chokcoco/autoDevTools
  *
@@ -14,12 +14,13 @@
 })('autoDevTool', function() {
 
     function autoDevTool() {
-        this._version = '1.0.2';
+        this._version = '1.0.3';
         this._times = 1;
         this._lastTapTime = null;
         this._container = null;
         this._isShow = false;
         this._position = true;
+        this._isPause = false;
 
         this._logContainer = null;
 
@@ -27,6 +28,7 @@
         this._btnClear = null;
         this._btnRefresh = null;
         this._btnSwitch = null;
+        this._btnPause = null;
     }
 
     /**
@@ -49,8 +51,8 @@
                         + '<li id="autoDev-refresh" style="background-color:#2196f3;flex:1;text-align:center;">刷新</li>'
                         + '</ul>'
                     +'<div id="autoDev-log" style="position:absolute;top:24px;bottom:0;left:0;right:0;padding:5px;overflow:scroll;"></div>'
-                    +'<div id="btn-devtool-switch" style="width:24px;height:24px;line-height:24px;font-family:tohama, sans-serif;position:absolute;right:20px;bottom:20px;border-radius:50%;color:rgba(255,255,255,.7);font-size:18px;text-align:center;font-weight:bold;background-color:rgba(255,152,0,.6);background-clip:content-box;border:10px solid transparent;">&uarr;</div>';
-
+                    +'<div id="btn-devtool-switch" style="width:24px;height:24px;line-height:24px;font-family:tohama,sans-serif;position:absolute;right:5px;bottom:20px;border-radius:50%;color:rgba(255,255,255,.7);font-size:18px;text-align:center;font-weight:bold;background-color:rgba(255,152,0,.6);background-clip:content-box;border:5px solid transparent;">&uarr;</div>'
+                    +'<div id="btn-devtool-pause" style="width:24px;height:24px;line-height:24px;font-family:tohama,sans-serif;position:absolute;right:5px;bottom:65px;border-radius:50%;color:rgba(255,255,255,.7);font-size:12px;text-align:center;font-weight:bold;background-color:rgba(244,67,54,.6);background-clip:content-box;border:5px solid transparent;">停</div>';
         body.appendChild(this._container);
 
         this._container.innerHTML = navDom;
@@ -60,6 +62,7 @@
         this._btnRefresh = document.getElementById('autoDev-refresh');
         this._btnFilter = document.querySelectorAll('.autoDev-filter');
         this._btnSwitch = document.getElementById('btn-devtool-switch');
+        this._btnPause = document.getElementById('btn-devtool-pause');
     }
 
     /**
@@ -166,6 +169,14 @@
             }
         })
 
+        // 暂停|播放按钮
+        this._btnPause.addEventListener("click", function(e) {
+            me._isPause = !me._isPause;
+            me._btnPause.innerText = me._isPause ? "播" : "停";
+
+            this.style.backgroundColor = me._isPause ? "rgba(139,195,74,.6)" : "rgba(244,67,54,.6)";
+        })
+
         var length = this._btnFilter.length;
 
         for (var i = 0; i < length; i++) {
@@ -208,7 +219,7 @@
      * @return {*}
      */
     autoDevTool.prototype._log = function(type, name, data) {
-        if(!this._isShow) {
+        if(!this._isShow || this._isPause) {
             return;
         }
 
@@ -251,8 +262,9 @@
             case type === "object":
                 if (data instanceof Error) {
                     this._log(3, name, data);
+                } else {
+                    this._log(2, name, JSON.stringify(data));
                 }
-                this._log(2, name, JSON.stringify(data));
                 break;
             default:
                 this._log(1, name, data);

@@ -42,11 +42,15 @@
 <script type="text/javascript">
 	window.dev = new autoDevTool();
 	dev.init();
+
+	// info 日志
+	dev.log("letmego", "Test ADT");
+
+	// json 日志
 	var json = {
 		"a": 1,
 		"b": 2
 	}
-
 	var cc = {
 		"a": 1,
 		"b": 2,
@@ -56,20 +60,21 @@
 			arr:[1,2,3,4,5,6,7,9]
 		}
 	}
-
 	dev.log("json", json);
-	dev.log("letmego", json);
-	dev.log("letmego", "1234");
-	dev.log("letmego", json);
 	dev.log("cc", cc);
-	dev.log("letmego", json);
-	dev.log("start:",new Date());
 
+	// error 日志输出
 	try{
 		var s = [2,3,3,4,5,67,e];
 	}catch(e) {
-		dev.log("Error:", e);
+		dev.log("err:", e);
 	}
+
+	// 循环输出
+	var count = 1;
+	setInterval(function(){
+		dev.log("count:", count++);
+	}, 5000);
 </script>
 </body>
 </html>
