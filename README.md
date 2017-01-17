@@ -61,6 +61,13 @@ devTool.log("json", json);
 
 ![](https://github.com/chokcoco/autoDevTools/blob/master/images/demo.jpg)
 
+## 控制台优化
+
++ 为保证性能，不污染 DOM 结构，控制台隐藏状态下，日志不会输出，要看到完整日志可以呼出控制台之后，点击刷新。此刷新功能页面刷新时控制台默认打开；
+
++ 为保证页面所有操作都可以进行，提供控制台定位控制，如果控制台挡住了页面下方的某些交互按钮，可以点击上移按钮；
+
+
 ## MIT
 
 License

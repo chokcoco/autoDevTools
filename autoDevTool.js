@@ -1,258 +1,302 @@
 /**
- * autoDevTool v1.0.1
+ * autoDevTool v1.0.2
  * By Coco
  * Github: https://github.com/chokcoco/autoDevTools
  *
  * @License MIT
  */
 (function(name, definition) {
-	if (typeof define === 'function') {
-		define(definition);
-	} else {
-		this[name] = definition();
-	}
+    if (typeof define === 'function') {
+        define(definition);
+    } else {
+        this[name] = definition();
+    }
 })('autoDevTool', function() {
 
-	function autoDevTool() {
-		this._version = '1.0.1';
-		this._times = 1;
-		this._lastTapTime = null;
-		this._container = null;
+    function autoDevTool() {
+        this._version = '1.0.1';
+        this._times = 1;
+        this._lastTapTime = null;
+        this._container = null;
+        this._isShow = false;
+        this._position = true;
 
-		this._logContainer = null;
+        this._logContainer = null;
 
-		this._btnFilter = null;
-		this._btnClear = null;
-		this._btnRefresh = null;
-	}
+        this._btnFilter = null;
+        this._btnClear = null;
+        this._btnRefresh = null;
+        this._btnSwitch = null;
+    }
 
-	/**
-	 * 创建记录遮罩
-	 * @return {*}
-	 */
-	autoDevTool.prototype._createWrap = function() {
-		var body = document.getElementsByTagName('body')[0];
+    /**
+     * 创建记录遮罩
+     * @return {*}
+     */
+    autoDevTool.prototype._createWrap = function() {
+        var body = document.getElementsByTagName('body')[0];
 
-		this._container = document.createElement('div');
-		this._container.setAttribute('id', 'dev-tool');
-		this._container.style.cssText = "display:none;position:fixed;top:70%;bottom:0;left:0;width:100%;box-sizing:border-box;background:rgba(255,255,255,.8);z-index:9999;"
+        this._container = document.createElement('div');
+        this._container.setAttribute('id', 'dev-tool');
+        this._container.style.cssText = "display:none;position:fixed;top:70%;bottom:0;left:0;width:100%;box-sizing:border-box;background:rgba(255,255,255,.9);z-index:9999;border:1px solid #ddd;"
 
-		var navDom = '<ul style="height:20px;line-height:20px;display:flex;justify-content:space-around;color:#fff;">' + '<li class="autoDev-filter" id="autoDev-all" style="background-color:#2196f3;flex:1;text-align:center;text-align:center;">All</li>' + '<li class="autoDev-filter" id="autoDev-info" style="background-color:#21bbf3;flex:1;text-align:center;">Info</li>' + '<li class="autoDev-filter" id="autoDev-json" style="background-color:#673AB7;flex:1;text-align:center;">Json</li>' + '<li class="autoDev-filter" id="autoDev-error" style="background-color:#FF5722;flex:1;text-align:center;">Error</li>' + '<li id="autoDev-clear" style="background-color:#9e9e9e;flex:1;text-align:center;">清空</li>' + '<li id="autoDev-refresh" style="background-color:#2196f3;flex:1;text-align:center;">刷新</li>' + '</ul><div id="autoDev-log" style="position:absolute;top:20px;bottom:0;left:0;right:0;padding:5px;overflow:scroll;"></div>';
+        var navDom = '<ul style="height:24px;line-height:24px;display:flex;justify-content:space-around;color:#fff;">'
+                        + '<li class="autoDev-filter" id="autoDev-all" style="background-color:#2196f3;flex:1;text-align:center;text-align:center;">All</li>'
+                        + '<li class="autoDev-filter" id="autoDev-info" style="background-color:#21bbf3;flex:1;text-align:center;">Info</li>'
+                        + '<li class="autoDev-filter" id="autoDev-json" style="background-color:#673AB7;flex:1;text-align:center;">Json</li>'
+                        + '<li class="autoDev-filter" id="autoDev-error" style="background-color:#FF5722;flex:1;text-align:center;">Error</li>'
+                        + '<li id="autoDev-clear" style="background-color:#9e9e9e;flex:1;text-align:center;">清空</li>'
+                        + '<li id="autoDev-refresh" style="background-color:#2196f3;flex:1;text-align:center;">刷新</li>'
+                        + '</ul>'
+                    +'<div id="autoDev-log" style="position:absolute;top:24px;bottom:0;left:0;right:0;padding:5px;overflow:scroll;"></div>'
+                    +'<div id="btn-devtool-switch" style="width:24px;height:24px;line-height:24px;font-family:tohama, sans-serif;position:absolute;right:20px;bottom:20px;border-radius:50%;color:rgba(255,255,255,.7);font-size:18px;text-align:center;font-weight:bold;background-color:rgba(255,152,0,.6);background-clip:content-box;border:10px solid transparent;">&uarr;</div>';
 
-		body.appendChild(this._container);
+        body.appendChild(this._container);
 
-		this._container.innerHTML = navDom;
+        this._container.innerHTML = navDom;
 
-		this._logContainer = document.getElementById('autoDev-log');
-		this._btnClear = document.getElementById('autoDev-clear');
-		this._btnRefresh = document.getElementById('autoDev-refresh');
-		this._btnFilter = document.querySelectorAll('.autoDev-filter');
-	}
+        this._logContainer = document.getElementById('autoDev-log');
+        this._btnClear = document.getElementById('autoDev-clear');
+        this._btnRefresh = document.getElementById('autoDev-refresh');
+        this._btnFilter = document.querySelectorAll('.autoDev-filter');
+        this._btnSwitch = document.getElementById('btn-devtool-switch');
+    }
 
-	/**
-	 * 初始化检测 URL ，查看是否开启控制台
-	 * @return {*}
-	 */
-	autoDevTool.prototype._checkUrl = function() {
-		var url = location.href;
+    /**
+     * 初始化检测 URL ，查看是否开启控制台
+     * @return {*}
+     */
+    autoDevTool.prototype._checkUrl = function() {
+        var url = location.href;
 
-		if (getCookie("isKeepTool") == 1) {
-			this._show();
-			setCookie("isKeepTool", 0, 1);
-		}
-	}
+        if (getCookie("isKeepTool") == 1) {
+            this._show();
+            setCookie("isKeepTool", 0, 1);
+        }
+    }
 
-	/**
-	 * 遮罩层显示
-	 * @return {*}
-	 */
-	autoDevTool.prototype._show = function() {
-		this._container.style.display = "block";
-	}
+    /**
+     * 遮罩层显示
+     * @return {*}
+     */
+    autoDevTool.prototype._show = function() {
+        this._container.style.display = "block";
+        this._isShow = true;
+    }
 
-	/**
-	 * 遮罩层关闭
-	 * @return {*}
-	 */
-	autoDevTool.prototype._hide = function() {
-		this._container.style.display = "none";
-	}
+    /**
+     * 遮罩层关闭
+     * @return {*}
+     */
+    autoDevTool.prototype._hide = function() {
+        this._container.style.display = "none";
+        this._isShow = false;
+        this._clear();
+    }
 
-	/**
-	 * 事件绑定
-	 * @return {*}
-	 */
-	autoDevTool.prototype._eventBind = function() {
-		var me = this;
+    /**
+     * 日志内容清空
+     * @return {*}
+     */
+    autoDevTool.prototype._clear = function() {
+        this._logContainer.innerHTML = "";
+    }
 
-		// 三指连点两次打开调试台
-		window.addEventListener("touchend", function(e) {
-			var nowTime = new Date();
-			var touches = e.touches.length;
+    /**
+     * 事件绑定
+     * @return {*}
+     */
+    autoDevTool.prototype._eventBind = function() {
+        var me = this;
 
-			if (me._times === 1) {
-				me._times++;
-				me._lastTapTime = nowTime;
+        // 三指连点两次打开调试台
+        window.addEventListener("touchend", function(e) {
+            var nowTime = new Date();
+            var touches = e.touches.length;
 
-				setTimeout(function() {
-					me._times = 1;
-				}, 1000);
-				return;
-			}
+            if (me._times === 1) {
+                me._times++;
+                me._lastTapTime = nowTime;
 
-			if (touches === 2 && me._times === 2 && (nowTime - me._lastTapTime < 1000)) {
-				if (me._container.style.display == "none") {
-					me._show();
-				} else {
-					me._hide();
-				}
+                setTimeout(function() {
+                    me._times = 1;
+                }, 1000);
+                return;
+            }
 
-				me._times = 1;
-			}
-		});
+            if (touches === 2 && me._times === 2 && (nowTime - me._lastTapTime < 1000)) {
+                if (me._container.style.display == "none") {
+                    me._show();
+                } else {
+                    me._hide();
+                }
 
-		// 清空按钮
-		this._btnClear.addEventListener("click", function(e) {
-			me._logContainer.innerHTML = "";
-		});
+                me._times = 1;
+            }
+        });
 
-		// 刷新按钮，保存控制台打开状态
-		this._btnRefresh.addEventListener("click", function(e) {
-			var url = location.href;
+        // 清空按钮
+        this._btnClear.addEventListener("click", function(e) {
+            me._clear();
+        });
 
-			setCookie("isKeepTool", "1", 1);
+        // 刷新按钮，保存控制台打开状态
+        this._btnRefresh.addEventListener("click", function(e) {
+            var url = location.href;
 
-			location.href = url;
-		});
+            setCookie("isKeepTool", "1", 1);
 
-		var length = this._btnFilter.length;
+            location.href = url;
+        });
 
-		for (var i = 0; i < length; i++) {
-			var navLi = this._btnFilter[i];
+        // 定位切换按钮
+        this._btnSwitch.addEventListener("click", function(e) {
+            if(me._position) {
+                me._container.style.top = "0";
+                me._container.style.bottom = "70%";
+                me._position = !me._position;
 
-			navLi.addEventListener("click", function(e) {
-				var target = e.target;
-				var id = target.getAttribute('id');
-				var logs = me._logContainer.querySelectorAll('p');
-				var logLength = logs.length;
+                this.innerHTML = "&darr;";
+            } else {
+                me._container.style.top = "70%";
+                me._container.style.bottom = "0";
+                me._position = !me._position;
 
-				var idMapClass = {
-					"autoDev-info": "autoDev-log-info",
-					"autoDev-json": "autoDev-log-json",
-					"autoDev-error": "autoDev-log-error"
-				};
+                this.innerHTML = "&uarr;";
+            }
+        })
 
-				for (var j = 0; j < logLength; j++) {
-					var elem = logs[j];
+        var length = this._btnFilter.length;
 
-					if (id === "autoDev-all") {
-						elem.style.display = "block";
-					} else {
-						if (idMapClass[id] === elem.getAttribute("class")) {
-							elem.style.display = "block";
-						} else {
-							elem.style.display = "none";
-						}
-					}
-				}
-			});
-		}
-	}
+        for (var i = 0; i < length; i++) {
+            var navLi = this._btnFilter[i];
 
-	/**
-	 * 打印 log
-	 * @param {Number} type 1 - 非object对象，2 - JSON对象或普通对象， 3 - Error对象
-	 * @param {String} name 输出名字
-	 * @param {String} data 输出数据
-	 * @return {*}
-	 */
-	autoDevTool.prototype._log = function(type, name, data) {
-		var p = document.createElement('p');
-		var date = new Date();
-		var curTime = date.getHours() + ':' + date.getSeconds();
-		var timeString = "<span style='color:#795548'>[" + curTime + "]</span>";
-		var logType = "";
-		var typeArr = ["", "autoDev-log-info", "autoDev-log-json", "autoDev-log-error"];
+            navLi.addEventListener("click", function(e) {
+                var target = e.target;
+                var id = target.getAttribute('id');
+                var logs = me._logContainer.querySelectorAll('p');
+                var logLength = logs.length;
 
-		switch (true) {
-			case type === 1:
-				logType = "<span style='color:#21bbf3'>[Info] </span>";
-				break;
-			case type === 2:
-				logType = "<span style='color:#673AB7'>[Json] </span>";
-				break;
-			case type === 3:
-				logType = "<span style='color:#FF5722'>[Error] </span>";
-				break;
-		}
+                var idMapClass = {
+                    "autoDev-info": "autoDev-log-info",
+                    "autoDev-json": "autoDev-log-json",
+                    "autoDev-error": "autoDev-log-error"
+                };
 
-		p.style.cssText = "font-size:12px;line-height:20px;color:#333;margin-bottom:0px;border-bottom:1px solid rgba(0,0,0,.2);"
-		p.setAttribute('class', typeArr[type]);
-		p.innerHTML = timeString + logType + name + "：" + data;
+                for (var j = 0; j < logLength; j++) {
+                    var elem = logs[j];
 
-		this._logContainer.appendChild(p);
-	}
+                    if (id === "autoDev-all") {
+                        elem.style.display = "block";
+                    } else {
+                        if (idMapClass[id] === elem.getAttribute("class")) {
+                            elem.style.display = "block";
+                        } else {
+                            elem.style.display = "none";
+                        }
+                    }
+                }
+            });
+        }
+    }
 
-	/**
-	 * 打印 log 接口
-	 * @param {String} name 输出名字
-	 * @param  {String | JSON} data
-	 * @return {*}
-	 */
-	autoDevTool.prototype.log = function(name, data) {
-		var type = typeof data;
+    /**
+     * 打印 log
+     * @param {Number} type 1 - 非object对象，2 - JSON对象或普通对象， 3 - Error对象
+     * @param {String} name 输出名字
+     * @param {String} data 输出数据
+     * @return {*}
+     */
+    autoDevTool.prototype._log = function(type, name, data) {
+        if(!this._isShow) {
+            return;
+        }
 
-		switch (true) {
-			case type === "object":
-				if (data instanceof Error) {
-					this._log(3, name, data);
-				}
+        var p = document.createElement('p');
+        var date = new Date();
+        var curTime = date.getHours() + ':' + date.getSeconds();
+        var timeString = "<span style='color:#795548'>[" + curTime + "]</span>";
+        var logType = "";
+        var typeArr = ["", "autoDev-log-info", "autoDev-log-json", "autoDev-log-error"];
 
-				this._log(2, name, JSON.stringify(data));
-				break;
-			default:
-				this._log(1, name, data);
-		}
-	}
+        switch (true) {
+            case type === 1:
+                logType = "<span style='color:#21bbf3'>[Info] </span>";
+                break;
+            case type === 2:
+                logType = "<span style='color:#673AB7'>[Json] </span>";
+                break;
+            case type === 3:
+                logType = "<span style='color:#FF5722'>[Error] </span>";
+                break;
+        }
 
-	/**
-	 * 设置 Cookie 值
-	 * @return {*}
-	 */
-	function setCookie(name, value, Hours) {
-		var d = new Date(),
-			offset = 8,
-			utc = d.getTime() + (d.getTimezoneOffset() * 60000),
-			nd = utc + (3600000 * offset),
-			exp = new Date(nd);
+        p.style.cssText = "font-size:14px;line-height:24px;color:#333;margin-bottom:0px;border-bottom:1px solid rgba(0,0,0,.2);"
+        p.setAttribute('class', typeArr[type]);
+        p.innerHTML = timeString + logType + name + "：" + data;
 
-		exp.setTime(exp.getTime() + Hours * 60 * 60 * 1000);
-		document.cookie = name + "=" + decodeURIComponent(value) + ";path=/;expires=" + exp.toGMTString() + ";";
-	}
+        this._logContainer.appendChild(p);
+    }
 
-	/**
-	 * 获取cookie值
-	 * @return {*}
-	 */
-	function getCookie(name) {
-		var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
-		if (arr != null) return encodeURIComponent(arr[2]);
-		return null;
-	}
+    /**
+     * 打印 log 接口
+     * @param {String} name 输出名字
+     * @param  {String | JSON} data
+     * @return {*}
+     */
+    autoDevTool.prototype.log = function(name, data) {
+        var type = typeof data;
 
-	/**
-	 * 初始化方法
-	 * @return {*}
-	 */
-	autoDevTool.prototype.init = function() {
-		this._createWrap();
-		this._checkUrl();
-		this._eventBind();
-	}
+        switch (true) {
+            case type === "object":
+                if (data instanceof Error) {
+                    this._log(3, name, data);
+                }
+                this._log(2, name, JSON.stringify(data));
+                break;
+            default:
+                this._log(1, name, data);
+        }
+    }
+
+    /**
+     * 设置 Cookie 值
+     * @return {*}
+     */
+    function setCookie(name, value, Hours) {
+        var d = new Date(),
+            offset = 8,
+            utc = d.getTime() + (d.getTimezoneOffset() * 60000),
+            nd = utc + (3600000 * offset),
+            exp = new Date(nd);
+
+        exp.setTime(exp.getTime() + Hours * 60 * 60 * 1000);
+        document.cookie = name + "=" + decodeURIComponent(value) + ";path=/;expires=" + exp.toGMTString() + ";";
+    }
+
+    /**
+     * 获取cookie值
+     * @return {*}
+     */
+    function getCookie(name) {
+        var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+        if (arr != null) return encodeURIComponent(arr[2]);
+        return null;
+    }
+
+    /**
+     * 初始化方法
+     * @return {*}
+     */
+    autoDevTool.prototype.init = function() {
+        this._createWrap();
+        this._checkUrl();
+        this._eventBind();
+    }
 
 
-	/**
-	 * export
-	 */
-	return autoDevTool;
+    /**
+     * export
+     */
+    return autoDevTool;
 });
