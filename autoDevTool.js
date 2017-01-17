@@ -306,7 +306,6 @@
         this._eventBind();
     }
 
-
     /**
      * export
      */
