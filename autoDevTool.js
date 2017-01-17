@@ -14,7 +14,7 @@
 })('autoDevTool', function() {
 
     function autoDevTool() {
-        this._version = '1.0.1';
+        this._version = '1.0.2';
         this._times = 1;
         this._lastTapTime = null;
         this._container = null;
