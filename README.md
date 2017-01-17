@@ -12,6 +12,7 @@
 <script type="text/javascript" src="autoDevTool.js"></script>
 <script type="text/javascript">
     var devTool = new autoDevTool();
+    devTool.init();
 </script>
 ```
 
@@ -21,6 +22,7 @@
 <script>
     require(['autoDevTool.js'], function(autoDevTool){
         var devTool = new autoDevTool();
+        devTool.init();
     });
 </script>
 ```
@@ -28,6 +30,7 @@
 + `log`：定义需要输出的日志。
 ```javascript
   var devTool = new autoDevTool();
+  devTool.init();
 
   var name = "自定义日志title";
   var data = {
@@ -65,13 +68,13 @@ devTool.log("json", json);
 
 三指双击屏幕两次（间隔小于1s），可以唤出日志控制台。
 
-![](https://github.com/chokcoco/autoDevTools/blob/master/images/demo.jpg)
+![](https://github.com/chokcoco/autoDevTools/blob/master/images/demo.png)
 
 ## 控制台优化
 
-+ 为保证性能，不污染 DOM 结构，控制台隐藏状态下，日志不会输出，要看到完整日志可以呼出控制台之后，点击刷新。此刷新功能页面刷新时控制台默认打开；
++ 为保证性能，不污染 DOM 结构，控制台隐藏状态下，日志不会输出，要看到完整日志可以呼出控制台之后，点击刷新。此刷新功能页面刷新时控制台默认打开
 
-+ 为保证页面所有操作都可以进行，提供控制台定位控制，如果控制台挡住了页面下方的某些交互按钮，可以点击上移按钮；
++ 为保证页面所有操作都可以进行，提供控制台定位控制，如果控制台挡住了页面下方的某些交互按钮，可以点击上移按钮
 
 
 ## MIT
