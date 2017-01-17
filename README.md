@@ -1,6 +1,6 @@
 # autoDevTools
 
-一款简单的移动端调试插件，解决移动端无法看到打印的 log，上线后亦可使用。
+移动端控制台插件，解决移动端无法看到打印的 log，上线后亦可使用。
 
 ## 使用方法
 
@@ -25,9 +25,15 @@
 </script>
 ```
 ## 接口调用
-+ `log`：定义需要输出的日志
-```
-  var devTool = new autoDevTool();
++ `log`：定义需要输出的日志。
+```javascript
+  var devTool = new autoDevTool();
+  
+  var name = "自定义日志title";
+  var data = {
+    value:""
+  }
+  
   devTool.log(name, data);
 ```
 适用如下场景：
