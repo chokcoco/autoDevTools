@@ -1,5 +1,5 @@
 /**
- * autoDevTool v1.0.3
+ * autoDevTool v1.0.4
  * By Coco
  * Github: https://github.com/chokcoco/autoDevTools
  *
@@ -14,7 +14,7 @@
 })('autoDevTool', function() {
 
     function autoDevTool() {
-        this._version = '1.0.3';
+        this._version = '1.0.4';
         this._times = 1;
         this._lastTapTime = null;
         this._container = null;
@@ -103,6 +103,14 @@
      */
     autoDevTool.prototype._clear = function() {
         this._logContainer.innerHTML = "";
+    }
+
+    /**
+     * 日志容器默认滚动到底部
+     * @return {*}
+     */
+    autoDevTool.prototype._scrollTop = function() {
+        this._logContainer.scrollTop  = this._logContainer.scrollHeight;
     }
 
     /**
@@ -242,11 +250,13 @@
                 break;
         }
 
-        p.style.cssText = "font-size:14px;line-height:24px;color:#333;margin-bottom:0px;border-bottom:1px solid rgba(0,0,0,.2);"
+        p.style.cssText = "font-size:14px;line-height:24px;color:#333;margin-bottom:0px;border-bottom:1px solid rgba(0,0,0,.2);word-break:break-all;"
         p.setAttribute('class', typeArr[type]);
-        p.innerHTML = timeString + logType + name + "：" + data;
+        p.innerHTML = timeString + logType + "<strong>" + name + "</strong>" + "：" + data;
 
         this._logContainer.appendChild(p);
+
+        this._scrollTop();
     }
 
     /**
