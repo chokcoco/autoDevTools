@@ -66,7 +66,7 @@ devTool.log("json", json);
 ```
 ## 控制调试台唤出方法：
 
-三指双击屏幕两次（间隔小于1s），可以唤出日志控制台。
+三指双击屏幕两次（间隔小于1s），可以唤出控制台。
 
 ![](https://github.com/chokcoco/autoDevTools/blob/master/images/example-demo.jpg)
 
