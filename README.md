@@ -6,7 +6,7 @@
 
 ### 初始化方法
 
-页面直接加载 autoDevTools.js，同时 autoDevTools.js 也支持 AMD 或 CMD 规范。
+页面直接加载 autoDevTools.js，同时 autoDevTools.js 也支持 AMD 或 CMD 。
 
 ```HTML
 <script type="text/javascript" src="autoDevTool.js"></script>
