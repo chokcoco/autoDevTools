@@ -70,7 +70,7 @@ devTool.log("json", json);
 
 ![](https://github.com/chokcoco/autoDevTools/blob/master/images/example-demo.jpg)
 
-## 控制台优化
+## 优化
 
 + 为保证性能，不污染 DOM 结构，控制台隐藏状态下，日志不会输出，要看到完整日志可以呼出控制台之后，点击刷新。此刷新功能页面刷新时控制台默认打开
 
