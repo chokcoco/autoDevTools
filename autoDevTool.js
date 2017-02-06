@@ -1,5 +1,5 @@
 /**
- * autoDevTool v1.0.5
+ * autoDevTool v1.0.6
  * By Coco
  * Github: https://github.com/chokcoco/autoDevTools
  *
