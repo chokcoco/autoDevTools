@@ -1,5 +1,5 @@
 /**
- * autoDevTool v1.0.6
+ * autoDevTool v1.0.7
  * By Coco
  * Github: https://github.com/chokcoco/autoDevTools
  *
@@ -69,15 +69,21 @@
     }
 
     /**
-     * 初始化检测 URL ，查看是否开启控制台
+     * 初始化检测 URL ，查看是否开启控制台，查看控制台位置
      * @return {*}
      */
-    autoDevTool.prototype._checkUrl = function() {
+    autoDevTool.prototype._checkInit = function() {
         var url = location.href;
 
         if (getCookie("isKeepTool") == 1) {
             this._show();
             setCookie("isKeepTool", 0, 1);
+        }
+
+        if(getCookie("positionLocation") == 1) {
+            this._positionBottom();
+        }else {
+            this._positionTop();
         }
     }
 
@@ -114,6 +120,30 @@
      */
     autoDevTool.prototype._scrollTop = function() {
         this._logContainer.scrollTop  = this._logContainer.scrollHeight;
+    }
+
+    /**
+     * 默认定位在下方
+     * @return {*}
+     */
+    autoDevTool.prototype._positionBottom = function() {
+        this._container.style.top = "70%";
+        this._container.style.bottom = "0";
+        this._position = !this._position;
+
+        this._btnSwitch.innerHTML = "&uarr;";
+    }
+
+    /**
+     * 默认定位在上方
+     * @return {*}
+     */
+    autoDevTool.prototype._positionTop = function() {
+        this._container.style.top = "0";
+        this._container.style.bottom = "70%";
+        this._position = !this._position;
+
+        this._btnSwitch.innerHTML = "&darr;";
     }
 
     /**
@@ -171,17 +201,11 @@
         // 定位切换按钮
         this._btnSwitch.addEventListener("click", function(e) {
             if(me._position) {
-                me._container.style.top = "0";
-                me._container.style.bottom = "70%";
-                me._position = !me._position;
-
-                this.innerHTML = "&darr;";
+                me._positionTop();
+                setCookie("positionLocation", "0", 24);
             } else {
-                me._container.style.top = "70%";
-                me._container.style.bottom = "0";
-                me._position = !me._position;
-
-                this.innerHTML = "&uarr;";
+                me._positionBottom();
+                setCookie("positionLocation", "1", 24);
             }
         })
 
@@ -320,7 +344,7 @@
      */
     autoDevTool.prototype.init = function() {
         this._createWrap();
-        this._checkUrl();
+        this._checkInit();
         this._eventBind();
     }
 
