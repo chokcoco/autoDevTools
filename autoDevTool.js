@@ -56,8 +56,8 @@
                         + '<li id="autoDev-close" style="background-color:#E91E63;flex:1;text-align:center;">关闭</li>'
                         + '</ul>'
                     +'<div id="autoDev-log" style="position:absolute;top:24px;bottom:0;left:0;right:0;padding:5px;overflow:scroll;"></div>'
-                    +'<div id="btn-devtool-switch" style="width:24px;height:24px;line-height:24px;font-family:tohama,sans-serif;position:absolute;right:5px;bottom:20px;border-radius:50%;color:rgba(255,255,255,.7);font-size:18px;text-align:center;font-weight:bold;background-color:rgba(255,152,0,.6);background-clip:content-box;border:5px solid transparent;">&uarr;</div>'
-                    +'<div id="btn-devtool-pause" style="width:24px;height:24px;line-height:24px;font-family:tohama,sans-serif;position:absolute;right:5px;bottom:65px;border-radius:50%;color:rgba(255,255,255,.7);font-size:12px;text-align:center;font-weight:bold;background-color:rgba(244,67,54,.6);background-clip:content-box;border:5px solid transparent;">停</div>';
+                    +'<div id="btn-devtool-switch" style="width:24px;height:24px;line-height:24px;font-family:tohama,sans-serif;position:absolute;right:5px;bottom:20px;border-radius:50%;color:rgba(255,255,255,.7);font-size:18px;text-align:center;font-weight:bold;background-color:rgba(255,152,0,.6);background-clip:content-box;border:5px solid transparent;box-sizing:content-box;">&uarr;</div>'
+                    +'<div id="btn-devtool-pause" style="width:24px;height:24px;line-height:24px;font-family:tohama,sans-serif;position:absolute;right:5px;bottom:65px;border-radius:50%;color:rgba(255,255,255,.7);font-size:12px;text-align:center;font-weight:bold;background-color:rgba(244,67,54,.6);background-clip:content-box;border:5px solid transparent;box-sizing:content-box;">停</div>';
         body.appendChild(this._container);
 
         this._container.innerHTML = navDom;
