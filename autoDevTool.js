@@ -6,9 +6,12 @@
  * @License MIT
  */
 (function(name, definition) {
+    // 检测上下文环境是否为 AMD 或者 CMD
     if (typeof define === 'function') {
+        // AMD 或者 CMD 环境
         define(definition);
     } else {
+        // 将模块的执行结果挂载在 window 变量中，在浏览器中 this 指向 window 对象
         this[name] = definition();
     }
 })('autoDevTool', function() {
