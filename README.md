@@ -1,4 +1,4 @@
-# autoDevTools
+# autoDevTools![]
 
 移动端控制台插件，解决移动端无法看到打印的 log，上线后亦可使用，用于快速定位问题。
 
@@ -6,7 +6,11 @@
 
 ### 初始化方法
 
-页面直接加载 autoDevTools.js，同时 autoDevTools.js 也支持 AMD 或 CMD 。
+使用 npm 安装包：
+
+`npm install auto_dev_tool --save-dev`
+
+或者页面直接加载 autoDevTools.js，同时 autoDevTools.js 也支持 AMD 或 CMD 。
 
 ```HTML
 <script type="text/javascript" src="autoDevTool.js"></script>
