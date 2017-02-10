@@ -2,7 +2,7 @@
   "name": "auto_dev_tool",
   "version": "1.0.7",
   "description": "A development debugging tool for mobile application. ",
-  "main": "autoDevTool.js",
+  "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
