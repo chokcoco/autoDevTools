@@ -1,0 +1,26 @@
+{
+  "name": "auto_dev_tool",
+  "version": "1.0.7",
+  "description": "A development debugging tool for mobile application. ",
+  "main": "autoDevTool.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chokcoco/autoDevTools.git"
+  },
+  "keywords": [
+    "a",
+    "mobile",
+    "development",
+    "debugging",
+    "tool"
+  ],
+  "author": "Coco",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chokcoco/autoDevTools/issues"
+  },
+  "homepage": "https://github.com/chokcoco/autoDevTools"
+}
