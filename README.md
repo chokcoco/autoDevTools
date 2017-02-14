@@ -12,7 +12,7 @@
 npm install auto_dev_tool --save-dev
 ```
 
-或者页面直接加载 autoDevTools.js，同时 autoDevTools.js 也支持 AMD 或 CMD 。
+或者页面直接加载 autoDevTools.js，同时 autoDevTools.js 也支持 AMD 或 CMD 规范。
 
 ```HTML
 <script type="text/javascript" src="autoDevTool.js"></script>
