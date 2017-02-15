@@ -45,8 +45,15 @@
 	window.dev = new autoDevTool();
 	dev.init();
 
-	// info 日志
-	dev.log("letmego", "Test ADT");
+	// one argument
+	dev.log("Number");
+
+	// info String
+	dev.log("String", "Test ADT");
+	// info Array
+	dev.log("Array", [1, 2, 3, 4, 5]);
+	// info Number
+	dev.log("Number", 1);
 
 	// json 日志
 	var json = {
