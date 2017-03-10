@@ -2,14 +2,11 @@
 
 移动端控制台插件，解决移动端无法看到打印的 log ，上线后亦可使用，用于快速定位问题。
 
-## 使用方法
 
-### 初始化安装
-
-使用 npm 安装包：
+## Install NPM
 
 ```
-npm install auto_dev_tool --save-dev
+$ npm install auto_dev_tool --save-dev
 ```
 
 或者页面直接加载 autoDevTools.js，同时 autoDevTools.js 也支持 AMD 或 CMD 规范。
@@ -22,7 +19,8 @@ npm install auto_dev_tool --save-dev
 </script>
 ```
 
-#### AMD:
+
+### AMD:
 ```HTML
 <script src="require.js"></script>
 <script>
@@ -32,8 +30,9 @@ npm install auto_dev_tool --save-dev
     });
 </script>
 ```
-## 接口调用
-+ `log`：定义需要输出的日志。
+## API
+
+- `log`：定义需要输出的日志。
 ```javascript
   var devTool = new autoDevTool();
   devTool.init();
@@ -46,6 +45,7 @@ npm install auto_dev_tool --save-dev
   devTool.log(name, data);
 ```
 适用如下场景：
+
 #### 普通变量输出
 
 ```javascript
