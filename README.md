@@ -73,13 +73,13 @@ var json = {
 }
 devTool.log("json", json);
 ```
-## 控制调试台唤出方法：
+## How to open
 
 三指双击屏幕两次（间隔小于1s），可以唤出控制台。
 
 ![](https://github.com/chokcoco/autoDevTools/blob/master/images/example-demo.jpg)
 
-## 优化
+## Update
 
 + 为保证性能，不污染 DOM 结构，控制台隐藏状态下，日志不会输出，要看到完整日志可以呼出控制台之后，点击刷新。此刷新功能页面刷新时控制台默认打开
 
