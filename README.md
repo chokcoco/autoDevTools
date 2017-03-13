@@ -1,4 +1,4 @@
-![npm_version](https://img.shields.io/npm/v/auto_dev_tool.svg)[![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://github.com/chokcoco/auto_dev_tool)![License](https://img.shields.io/npm/l/express.svg)
+![npm_version](https://img.shields.io/npm/v/auto_dev_tool.svg)[![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://github.com/chokcoco/autoDevTools)![License](https://img.shields.io/npm/l/express.svg)
 
 # autoDevTools
 
