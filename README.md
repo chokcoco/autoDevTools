@@ -1,5 +1,7 @@
 ![npm_version](https://img.shields.io/npm/v/auto_dev_tool.svg)[![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://github.com/chokcoco/autoDevTools)![License](https://img.shields.io/npm/l/express.svg)
 
+##### [NPM -- autoDevTools](https://www.npmjs.com/package/auto_dev_tool)
+
 # autoDevTools
 
 移动端控制台插件，解决移动端无法看到打印的 log ，上线后亦可使用，用于快速定位问题。
